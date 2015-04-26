@@ -23,7 +23,8 @@ search(List, Rest, Acc) ->
   Middle = Length div 2,
   Item = lists:nth(Middle, List),
   NextItem = lists:nth(Middle + 1, List),
-  Etalon = lists:nth(1, List) + Middle - 1,
+  ExpectedValue = lists:nth(1, List) + Middle - 1,
+  
   case Length of
     2 -> [First | Tail] = List,
          Last = lists:last(List),
@@ -37,7 +38,7 @@ search(List, Rest, Acc) ->
                                                  2,  NextItem - Item - 1),
                                    Acc));
         false ->
-          case Item > Etalon of
+          case Item > ExpectedValue of
             true -> search(lists:sublist(List, Length - Middle),
                            get_rest(lists:sublist(List, Middle + 1, Length), Rest),
                            Acc);
